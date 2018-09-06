@@ -19,7 +19,8 @@
   "homepage": "https://github.com/quentin-burg/basket_management#readme",
   "dependencies": {
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "sequelize": "^4.38.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
