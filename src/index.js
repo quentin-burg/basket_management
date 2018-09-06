@@ -1,14 +1,8 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 
-class Hello extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Hello world !</p>
-      </div>
-    );
-  }
-}
+const Index = () => {
+  return <div>Hello React!</div>;
+};
 
-render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('root'));
