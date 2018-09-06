@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -7,7 +8,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {
@@ -31,5 +32,9 @@ module.exports = {
         from: path.join(__dirname, 'index.html'),
       },
     ]),
+    new HtmlWebPackPlugin({
+      template: './index.html',
+      filename: './index.html',
+    }),
   ],
 };
