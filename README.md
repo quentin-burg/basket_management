@@ -51,3 +51,5 @@ J'ai repris la façon de faire que j'utilise tous les jours c'est à dire pour c
 ## To implements API
 
 https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
+
+## TODO : Mettre Prettier et Eslint pour aider à l'écriture et formattage du code JS
