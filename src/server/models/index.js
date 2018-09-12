@@ -1,14 +1,9 @@
 // FIXME babelify API server
 
-// import Sequelize from 'sequelize';
-// import config from 'server/config';
-// import path from 'path';
-// import fs from 'fs';
-
-const Sequelize = require('sequelize');
-const config = require('../config/index.js');
-const path = require('path');
-const fs = require('fs');
+import Sequelize from 'sequelize';
+import config from 'server/config';
+import path from 'path';
+import fs from 'fs';
 
 const dbConfig = { ...config, dialect : 'postgres' };
 
@@ -25,10 +20,7 @@ const basename = path.basename(module.filename);
 fs.readdirSync(__dirname)
   .filter(function(file) {
     return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('triggers') === -1
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
     );
   })
   .forEach(function(file) {
