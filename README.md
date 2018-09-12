@@ -52,9 +52,19 @@ J'ai repris la façon de faire que j'utilise tous les jours c'est à dire pour c
 
 https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
 
-## TODO : Mettre Prettier et Eslint pour aider à l'écriture et formattage du code JS
-
 ## PORTS :
 
 - app listen on port 3000
 - server API listen on port 5000
+
+## Pour démarrer le server en mode "dev":
+
+- npm run dev:server
+
+# TODO :
+
+- User Interface -> 3 vues
+- Le serveur -> définir les modèles (commande et facture) : avec les routes (POST, GET, PUT) (ENDPOINTS)
+- API -> coté client : définir les appels aux routes
+
+- Redéfinir les modèles (avec UUID et pas integer)

@@ -1,12 +1,15 @@
-// FIXME babelify API server
-
-// import express from 'express';
-// import db from 'server/models';
-
-const express = require('express');
-const db = require('./models/index.js');
+import express from 'express';
+import db from 'server/models';
+import routes from 'server/routes';
+import bodyParser from 'body-parser';
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended : true, limit : '2mb' }));
+app.use(bodyParser.json({ limit : '5mb' }));
+
+// Connect routes
+app.use(routes);
 
 // we can configure port variable
 db.sequelize
