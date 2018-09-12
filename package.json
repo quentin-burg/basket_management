@@ -11,7 +11,8 @@
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "dev:server": "babel-watch ./src/server"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,11 @@
   "homepage": "https://github.com/quentin-burg/basket_management#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "babel-core": "^6.26.3",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-numeric-input": "^2.2.3",
@@ -36,16 +40,13 @@
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.2",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-watch": "^2.0.7",
     "copy-webpack-plugin": "^4.5.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.1.0",
