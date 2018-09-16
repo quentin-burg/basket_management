@@ -1,21 +1,21 @@
 export default (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     id : {
-      allowNull     : false,
-      autoIncrement : true,
-      primaryKey    : true,
-      type          : DataTypes.INTEGER,
+      allowNull    : false,
+      primaryKey   : true,
+      type         : DataTypes.UUID,
+      defaultValue : DataTypes.UUIDV1,
     },
     articleId : {
       type : DataTypes.INTEGER,
     },
-    nom : {
+    name : {
       type : DataTypes.TEXT,
     },
-    quantite : {
+    quantity : {
       type : DataTypes.INTEGER,
     },
-    prixUnitaire : {
+    price : {
       type : DataTypes.REAL,
     },
     userId : {
