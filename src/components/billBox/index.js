@@ -5,7 +5,7 @@ import BillLine from 'components/billLine';
 const Container = styled.div`
   font-size: 20px;
   text-align: left;
-  margin: 20px;
+  margin-bottom: 20px;
   border: 1px solid;
   display: flex;
   justify-content: space-between;
