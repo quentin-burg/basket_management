@@ -3,13 +3,14 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   background-color: lightgrey;
-  width: 50px;
+  display: flex;
+  justify-content: flex-end;
 `;
 
-const Button = () => (
+const ValidateButton = () => (
   <Container>
-    <div>Test</div>
+    <div>Valider</div>
   </Container>
 );
 
-export default Button;
+export default ValidateButton;

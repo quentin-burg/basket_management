@@ -5,8 +5,6 @@ import NumericInput from 'react-numeric-input';
 const Container = styled.div`
   display: flex;
   justify-content: flex-start;
-  padding: 10px;
-  margin: 10px;
   border: 1px solid;
 `;
 
