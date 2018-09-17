@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import TotalBox from '../totalBox';
-import CreditCardBox from '../creditCardBox';
+import TotalBox from 'components/totalBox';
+import CreditCardBox from 'components/creditCardBox';
 import BillBox from 'components/billBox';
 
 const Container = styled.div`

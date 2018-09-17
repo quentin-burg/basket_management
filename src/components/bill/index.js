@@ -7,8 +7,6 @@ const Container = styled.div`
   text-align: center;
   margin: 20px;
   border: 1px solid;
-  display: flex;
-  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -19,17 +17,24 @@ const Title = styled.div`
 
 const Message = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: space-around;
 `;
 
 const Bill = () => (
   <Container>
     <Title>Votre facture</Title>
-    <BillBox />
-    <Message>
-      <div>Merci d'avoir commandé!</div>
-      <div>Votre numéro de facture est le: xxxxxx</div>
-    </Message>
+    <Content>
+      <BillBox />
+      <Message>
+        <div>Merci d\'avoir commandé!</div>
+        <div>Votre numéro de facture est le: xxxxxx</div>
+      </Message>
+    </Content>
   </Container>
 );
 

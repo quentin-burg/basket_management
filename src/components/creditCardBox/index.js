@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import validateButton from 'components/validateButton';
-import ValidateButton from '../validateButton';
+import ValidateButton from 'components/validateButton';
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ const CreditCardBox = () => (
       <input type="text" name="number" />
     </label>
     <label>
-      Date d'expiration:
+      Date d\'expiration:
       <input type="text" name="exp_date" />
     </label>
     <label>
