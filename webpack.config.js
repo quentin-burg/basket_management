@@ -3,38 +3,39 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+  entry  : './src/index.js',
+  output : {
+    filename   : 'bundle.js',
+    path       : path.resolve(__dirname, 'dist'),
+    publicPath : '/',
   },
-  mode: 'development',
-  module: {
-    rules: [
+  mode   : 'development',
+  module : {
+    rules : [
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: [
+        test    : /\.jsx?$/,
+        exclude : /node_modules/,
+        use     : [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/react'],
+            loader  : 'babel-loader',
+            options : {
+              presets : ['@babel/react'],
             },
           },
         ],
       },
     ],
   },
-  plugins: [
+  plugins : [
     new CopyWebpackPlugin([
       // Copy index.html in output folder
       {
-        from: path.join(__dirname, 'index.html'),
+        from : path.join(__dirname, 'index.html'),
       },
     ]),
     new HtmlWebPackPlugin({
-      template: './index.html',
-      filename: './index.html',
+      template : './index.html',
+      filename : './index.html',
     }),
   ],
 };

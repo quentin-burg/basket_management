@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Order from 'components/order';
-import OrderLine from 'components/orderLine';
 import TotalBox from '../totalBox';
-import ValidateButton from '../validateButton';
-import AskValidationBox from 'components/askValidationBox';
-import Bill from 'components/bill';
+import CreditCardBox from '../creditCardBox';
+import BillBox from 'components/billBox';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -25,19 +22,22 @@ const Total = styled.div`
   margin-right: 10px;
 `;
 
-/*const Home = () => (
+const Content = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const Order = () => (
   <Container>
-    <Title> Voici votre panier </Title>
-    <OrderLine />
+    <Title> Votre commande </Title>
+    <Content>
+      <BillBox />
+      <CreditCardBox />
+    </Content>
     <Total>
-      <TotalBox/>
-      <ValidateButton/>
+      <TotalBox />
     </Total>
-
-
   </Container>
-);*/
+);
 
-const Home = () => <Bill />;
-
-export default Home;
+export default Order;
