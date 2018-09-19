@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type : DataTypes.STRING,
     },
   });
+  // TODO : remove that
   Bill.associate = models => {
     Bill.belongsTo(models.Order, { as : 'order' });
   };
