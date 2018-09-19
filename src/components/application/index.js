@@ -10,7 +10,7 @@ const history = createBrowserHistory();
 const Application = () => (
   <Router history={history}>
     <Switch>
-      <Route path="/" component={Home} />
+      <Route exact path="/" component={Home} />
       <Route path="/order" component={Order} />
       <Route path="/bill" component={Bill} />
     </Switch>
