@@ -1,20 +1,21 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router';
+// import { Router, Route, Switch } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from 'components/home';
 import Order from 'components/order';
 import Bill from 'components/bill';
-import createBrowserHistory from 'history/createBrowserHistory';
+// import createBrowserHistory from 'history/createBrowserHistory';
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 
 const Application = () => (
-  <Router history={history}>
+  <BrowserRouter>
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/order" component={Order} />
-      <Route path="/bill" component={Bill} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/order" component={Order} />
+      <Route exact path="/bill" component={Bill} />
     </Switch>
-  </Router>
+  </BrowserRouter>
 );
 
 export default Application;
