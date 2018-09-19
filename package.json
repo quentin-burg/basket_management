@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js --mode production",
-    "dev": "webpack-dev-server --mode development --open --config webpack.config.js",
+    "dev": "webpack-dev-server --mode development --config webpack.config.js",
     "server": "node server/index.js",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
-    "babel-loader": "^8.0.2",
+    "babel-loader": "^7.1.5",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
