@@ -1,16 +1,29 @@
 import React from 'react';
+import history from 'utils/history';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
-  background-color: lightgrey;
   display: flex;
   justify-content: flex-end;
+  cursor: pointer;
 `;
 
-const ValidateButton = () => (
+const Button = styled.div`
+  background-color: lightgrey;
+  white-space: normal;
+  border: solid black 2px;
+  padding: 10px;
+`;
+
+const ValidateButton = ({ path }) => (
   <Container>
-    <div>Valider</div>
+    <Button onClick={() => history.push(path)}>Valider</Button>
   </Container>
 );
+
+ValidateButton.propTypes = {
+  path : PropTypes.string.isRequired,
+};
 
 export default ValidateButton;
