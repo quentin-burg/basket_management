@@ -1,6 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 
-export default function withFetch(Component, { route, body }) {
+export default function withFetch(Component, { method, route, body }) {
   class Fetch extends React.Component {
     constructor(props) {
       super(props);
@@ -15,18 +16,27 @@ export default function withFetch(Component, { route, body }) {
     }
 
     callApi() {
-      return fetch(route, { body }).then(response => {
-        const resJson = response.json();
-        if (resJson.status !== 200) {
-          throw new Error(resJson.message);
-        }
-        return resJson;
+      const headers = new Headers({
+        'Content-Type' : 'application/json',
       });
+      const opts = {
+        method,
+        body,
+        headers,
+      };
+      return fetch(route, opts)
+        .then(response => response.json())
+        .then(resJson => {
+          if (!resJson.success) {
+            throw new Error(resJson.msg);
+          }
+          return resJson;
+        });
     }
 
     render() {
-      const properties = this.state.response;
-      return <Component {...properties} />;
+      const properties = _.omit(this.state.response, ['success', 'msg']);
+      return <Component {...properties} {...this.props} />;
     }
   }
   return Fetch;

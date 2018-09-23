@@ -15,14 +15,14 @@ const CreditCardBox = () => (
       <input type="text" name="number" />
     </label>
     <label>
-      Date d\'expiration:
+      Date d expiration:
       <input type="text" name="exp_date" />
     </label>
     <label>
       Cryptogramme:
       <input type="text" name="crypto" />
     </label>
-    <ValidateButton />
+    <ValidateButton path="/bill" />
   </Container>
 );
 
