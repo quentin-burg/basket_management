@@ -2,11 +2,19 @@ import express from 'express';
 import db from 'server/models';
 import routes from 'server/routes';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import cors from 'cors';
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended : true, limit : '2mb' }));
 app.use(bodyParser.json({ limit : '5mb' }));
+
+// Enable security helpers with various HTTP headers
+app.use(helmet());
+
+// Use CORS protocol
+app.use(cors());
 
 // Connect routes
 app.use(routes);

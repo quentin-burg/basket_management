@@ -3,9 +3,7 @@ import { Router, Route, Switch } from 'react-router';
 import Home from 'components/home';
 import Order from 'components/order';
 import Bill from 'components/bill';
-import createBrowserHistory from 'history/createBrowserHistory';
-
-const history = createBrowserHistory();
+import history from 'utils/history';
 
 const Application = () => (
   <Router history={history}>

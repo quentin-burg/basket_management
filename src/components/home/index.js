@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
 import ValidateButton from 'components/validateButton';
+import PropTypes from 'prop-types';
+import withFetch from 'api';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -22,14 +24,21 @@ const Total = styled.div`
   margin-right: 10px;
 `;
 
-const Home = () => (
+const Home = ({ articles }) => (
   <Container>
     <Title> Voici votre panier </Title>
-    <OrderLine />
+    <OrderLine articles={articles || []} />
     <Total>
       <TotalBox />
-      <ValidateButton />
+      <ValidateButton path="/order" />
     </Total>
   </Container>
 );
-export default Home;
+
+Home.propTypes = {
+  articles : PropTypes.array,
+};
+export default withFetch(Home, {
+  route  : 'http://localhost:5000/order/35',
+  method : 'GET',
+});
