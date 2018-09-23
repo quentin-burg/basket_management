@@ -11,8 +11,7 @@
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
-    "precommit": "lint-staged",
-    "dev:server": "babel-watch ./src/server"
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -26,21 +25,16 @@
   "homepage": "https://github.com/quentin-burg/basket_management#readme",
   "dependencies": {
     "babel-core": "^6.26.3",
-    "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "helmet": "^3.13.0",
     "lodash": "^4.17.11",
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-numeric-input": "^2.2.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "sequelize": "^4.38.0",
     "styled-components": "^3.4.5"
   },
   "devDependencies": {
