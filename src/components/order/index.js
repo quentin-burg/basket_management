@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import TotalBox from 'components/totalBox';
 import CreditCardBox from 'components/creditCardBox';
 import BillBox from 'components/billBox';
-import withFetch from 'api';
-import PropTypes from 'prop-types';
-
-// TODO : manage with PropTypes
+import callApi from 'api';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -31,24 +28,33 @@ const Content = styled.div`
   justify-content: space-around;
 `;
 
-const Order = ({ articles }) => (
-  <Container>
-    <Title> Votre commande </Title>
-    <Content>
-      <BillBox articles={articles || []} />
-      <CreditCardBox />
-    </Content>
-    <Total>
-      <TotalBox />
-    </Total>
-  </Container>
-);
+class Order extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles : [],
+    };
+  }
+  componentDidMount() {
+    callApi({ method : 'GET', route : 'http://localhost:5000/order/35' }).then(
+      ({ articles }) => this.setState({ articles })
+    );
+  }
+  render() {
+    const { articles } = this.state;
+    return (
+      <Container>
+        <Title> Votre commande </Title>
+        <Content>
+          <BillBox articles={articles} />
+          <CreditCardBox />
+        </Content>
+        <Total>
+          <TotalBox />
+        </Total>
+      </Container>
+    );
+  }
+}
 
-Order.propTypes = {
-  articles : PropTypes.array,
-};
-
-export default withFetch(Order, {
-  method : 'GET',
-  route  : 'http://localhost:5000/order/35',
-});
+export default Order;
