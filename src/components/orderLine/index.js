@@ -32,6 +32,3 @@ OrderLine.propTypes = {
   articles : PropTypes.array,
 };
 export default OrderLine;
-
-// <Line article={article} />
-//     <NumericInput min={1} size={3} />))}

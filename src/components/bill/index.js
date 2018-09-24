@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import BillBox from 'components/billBox';
 import PropTypes from 'prop-types';
-import withFetch from 'api';
 
 const Container = styled.div`
   font-size: 20px;
@@ -44,7 +43,9 @@ Bill.propTypes = {
   articles : PropTypes.array,
 };
 
-export default withFetch(Bill, {
-  method : 'GET',
-  route  : 'http://localhost:5000/order/35',
-});
+// export default withFetch(Bill, {
+//   method : 'GET',
+//   route  : 'http://localhost:5000/order/35',
+// });
+
+export default Bill;
