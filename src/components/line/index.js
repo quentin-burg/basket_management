@@ -15,7 +15,6 @@ const Line = ({ article }) => (
       {article.price}
       euros
     </div>
-    <div>{article.quantity}</div>
   </Container>
 );
 

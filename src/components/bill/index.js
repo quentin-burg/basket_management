@@ -43,9 +43,4 @@ Bill.propTypes = {
   articles : PropTypes.array,
 };
 
-// export default withFetch(Bill, {
-//   method : 'GET',
-//   route  : 'http://localhost:5000/order/35',
-// });
-
 export default Bill;
