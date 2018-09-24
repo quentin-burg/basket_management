@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
-import ValidateButton from 'components/validateButton';
+import ValidateOrderButton from 'components/validateOrderButton';
 import callApi from 'api';
 
 const Container = styled.div`
@@ -37,13 +37,19 @@ class Home extends React.Component {
   }
   render() {
     const { articles } = this.state;
+
+    function addArticlesPrices(articlesList) {
+      const reducer = (sum, article) => article.price * article.quantity + sum;
+      return articlesList.reduce(reducer, 0).toFixed(2);
+    }
+
     return (
       <Container>
         <Title> Voici votre panier </Title>
         <OrderLine articles={articles || []} />
         <Total>
-          <TotalBox />
-          <ValidateButton path="/order" />
+          <TotalBox totalPrice={addArticlesPrices(articles)} />
+          <ValidateOrderButton path="/order" />
         </Total>
       </Container>
     );
