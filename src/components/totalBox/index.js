@@ -16,7 +16,7 @@ const TotalBox = ({ totalPrice }) => (
 );
 
 TotalBox.propTypes = {
-  totalPrice : PropTypes.array,
+  totalPrice : PropTypes.string,
 };
 
 export default TotalBox;

@@ -22,7 +22,7 @@ const OrderLine = ({ articles }) => (
     {articles.map(article => (
       <LineContainer key={article.id}>
         <Line article={article} key={article.id} />
-        <NumericInput min={1} size={3} />
+        <NumericInput min={1} size={3} value={article.quantity} />
       </LineContainer>
     ))}
   </Container>
