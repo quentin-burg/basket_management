@@ -45,6 +45,13 @@ module.exports = {
         from : path.join(__dirname, 'index.html'),
       },
     ]),
+    new CopyWebpackPlugin([
+      // Copy index.html in output folder
+      {
+        from : path.join(__dirname, 'server'),
+        to   : path.join(__dirname, 'dist', 'server'),
+      },
+    ]),
     new HtmlWebPackPlugin({
       template : './index.html',
       filename : './index.html',
