@@ -11,7 +11,8 @@
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "start": "node dist/server/index.js"
   },
   "repository": {
     "type": "git",
