@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
-import ValidateButton from 'components/validateButton';
+import ValidateOrderButton from 'components/validateOrderButton';
+import callApi from 'api';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -22,14 +23,37 @@ const Total = styled.div`
   margin-right: 10px;
 `;
 
-const Home = () => (
-  <Container>
-    <Title> Voici votre panier </Title>
-    <OrderLine />
-    <Total>
-      <TotalBox />
-      <ValidateButton />
-    </Total>
-  </Container>
-);
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles : [],
+    };
+  }
+  componentDidMount() {
+    callApi({ method : 'GET', route : 'http://localhost:5000/order/35' }).then(
+      ({ articles }) => this.setState({ articles })
+    );
+  }
+  render() {
+    const { articles } = this.state;
+
+    function addArticlesPrices(articlesList) {
+      const reducer = (sum, article) => article.price * article.quantity + sum;
+      return articlesList.reduce(reducer, 0).toFixed(2);
+    }
+
+    return (
+      <Container>
+        <Title> Voici votre panier </Title>
+        <OrderLine articles={articles || []} />
+        <Total>
+          <TotalBox totalPrice={addArticlesPrices(articles)} />
+          <ValidateOrderButton path="/order" />
+        </Total>
+      </Container>
+    );
+  }
+}
+
 export default Home;

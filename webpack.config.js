@@ -22,8 +22,17 @@ module.exports = {
           {
             loader  : 'babel-loader',
             options : {
-              presets : ['@babel/react'],
+              presets : ['babel-preset-react'],
             },
+          },
+        ],
+      },
+      {
+        test    : /\.json$/,
+        exclude : /node_modules/,
+        use     : [
+          {
+            loader : 'json-loader',
           },
         ],
       },
@@ -34,6 +43,13 @@ module.exports = {
       // Copy index.html in output folder
       {
         from : path.join(__dirname, 'index.html'),
+      },
+    ]),
+    new CopyWebpackPlugin([
+      // Copy index.html in output folder
+      {
+        from : path.join(__dirname, 'server'),
+        to   : path.join(__dirname, 'dist', 'server'),
       },
     ]),
     new HtmlWebPackPlugin({
