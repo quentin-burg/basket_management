@@ -35,7 +35,10 @@ class Home extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    callApi({ method : 'GET', route : 'http://localhost:5000/order/35' })
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${this.props.userId}`,
+    })
       .then(({ articles }) => {
         this.setState({ articles });
         return Promise.resolve(articles);
@@ -67,6 +70,11 @@ class Home extends React.Component {
         articles : this.state.articles,
       },
     }).then(result => console.log(result));
+    const userId = this.props;
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${userId}`,
+    }).then(({ articles }) => this.setState({ articles }));
   }
 
   render() {
