@@ -4,6 +4,7 @@ import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
 import ValidateOrderButton from 'components/validateOrderButton';
 import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -92,6 +93,8 @@ class Home extends React.Component {
   }
 }
 
-// action={() => callApi({ method : 'PUT', route : 'http://localhost:5000/order')}
+Home.propTypes = {
+  userId : PropTypes.string.isRequired,
+};
 
 export default Home;
