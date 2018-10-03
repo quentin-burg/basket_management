@@ -67,7 +67,7 @@ https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-ba
 
 # WORKFLOW GIT :
 
-<master> <------ <test> <------ <dev> -------> <someBranch>
+master <------ test <------ dev -------> someBranch
 
 ## Explications :
 
