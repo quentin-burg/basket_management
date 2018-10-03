@@ -63,7 +63,7 @@ class Home extends React.Component {
     );
     callApi({
       method : 'PUT',
-      route  : 'http://localhost:5000/order',
+      route  : '/order',
       body   : {
         articles : this.props.articles,
       },

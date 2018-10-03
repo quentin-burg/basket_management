@@ -83,11 +83,11 @@ master <------ test <------ dev -------> someBranch
 
 - npm install : installe toutes les dépendances du projet. A exécuter après un pull pour prévenir tout changement de dépendances.
 
-- npm run build : génère un build de l'application. Le dossier de build généré est `dist` pour l'app frontend et `build` pour le serveur.
+- npm run build : génère un build de l'application dans le bon environnement (production ou preprod). Le dossier de build généré est `dist` pour l'app frontend et `build` pour le serveur.
 
 - npm run test : permet d'exécuter les tests du projet.
 
-- npm run start (ou npm start) : permet d'exécuter l'app buildée (donc qui se trouve dans `dist` ou `build`)
+- npm run start:"environnement" (ou npm start) : permet d'exécuter l'app buildée (donc qui se trouve dans `dist` ou `build`) dans le bon environnement (production ou preprod)
 
 - npm run dev : permet d'exécuter l'app dans un contexte de développement (permet le hot reload par exemple)
 
@@ -97,6 +97,8 @@ master <------ test <------ dev -------> someBranch
 
 Le fichier de configuration pour le serveur se trouve dans le dossier `src/config/index.js`.
 
+// TODO
+UTILISER LA VARIABLE d'environnement ENV
 // TODO
 
 ## Application web :

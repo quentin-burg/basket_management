@@ -11,7 +11,7 @@ class Application extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //userId   : 'f3729640-bfe1-11e8-9f74-bdb1f4431500',
+      // userId   : 'f3729640-bfe1-11e8-9f74-bdb1f4431500',
       userId   : props.userId,
       articles : [],
     };
@@ -21,7 +21,7 @@ class Application extends React.Component {
     const userId = this.state.userId;
     callApi({
       method : 'GET',
-      route  : `http://localhost:5000/order/${userId}`,
+      route  : `/order/${userId}`,
     }).then(({ articles }) => {
       this.setState({ articles });
       return Promise.resolve(articles);
