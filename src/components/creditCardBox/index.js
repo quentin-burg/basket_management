@@ -16,7 +16,7 @@ class CreditCardBox extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit() {
-    const userId = this.props;
+    const { userId } = this.props;
     callApi({
       method : 'POST',
       route  : 'http://localhost:5000/bill',

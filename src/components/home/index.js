@@ -28,31 +28,23 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles         : [],
       articlesQuantity : {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount() {
-    const { userId } = this.props;
-    if (userId) {
-      callApi({
-        method : 'GET',
-        route  : `http://localhost:5000/order/${userId}`,
-      })
-        .then(({ articles }) => {
-          this.setState({ articles });
-          return Promise.resolve(articles);
-        })
-        .then(articles => {
-          const articlesQteTemp = {};
-          articles.map(
-            article => (articlesQteTemp[article.id] = article.quantity)
-          );
-          this.setState({ articlesQuantity : articlesQteTemp });
-        });
+
+  componentDidUpdate(prevProps) {
+    if (this.props.articles !== prevProps.articles) {
+      this.setState({ articles : this.props.articles });
     }
+  }
+  componentDidMount() {
+    articles => {
+      const articlesQteTemp = {};
+      articles.map(article => (articlesQteTemp[article.id] = article.quantity));
+      this.setState({ articlesQuantity : articlesQteTemp });
+    };
   }
 
   updateQuantity(quantity, id) {
@@ -62,57 +54,47 @@ class Home extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state.articles);
-    this.state.articles.map(
-      article => (article.quantity = this.state.articlesQuantity[article.id])
+    const articles = this.props.articles;
+    articles.map(
+      article =>
+        this.state.articlesQuantity[article.id] !== undefined
+          ? (article.quantity = this.state.articlesQuantity[article.id])
+          : article.quantity
     );
     callApi({
       method : 'PUT',
       route  : 'http://localhost:5000/order',
       body   : {
-        articles : this.state.articles,
+        articles : this.props.articles,
       },
     }).then(result => console.log(result));
-    const userId = this.props;
-    callApi({
-      method : 'GET',
-      route  : `http://localhost:5000/order/${userId}`,
-    }).then(({ articles }) => this.setState({ articles }));
   }
 
   render() {
-    const { articles } = this.state;
-
     function addArticlesPrices(articlesList) {
       const reducer = (sum, article) => article.price * article.quantity + sum;
       return articlesList.reduce(reducer, 0).toFixed(2);
     }
-    if (this.state.articles.length) {
-      return (
-        <Container>
-          <Title> Voici votre panier </Title>
-          <OrderLine
-            articles={articles || []}
-            updateQuantity={this.updateQuantity}
-          />
-          <Total>
-            <TotalBox totalPrice={addArticlesPrices(articles)} />
-            <ValidateOrderButton path="/order" action={this.handleSubmit} />
-          </Total>
-        </Container>
-      );
-    } else {
-      return (
-        <Container>
-          <Title> Votre panier est vide </Title>
-        </Container>
-      );
-    }
+
+    return (
+      <Container>
+        <Title> Voici votre panier </Title>
+        <OrderLine
+          articles={this.props.articles || []}
+          updateQuantity={this.updateQuantity}
+        />
+        <Total>
+          <TotalBox totalPrice={addArticlesPrices(this.props.articles)} />
+          <ValidateOrderButton path="/order" action={this.handleSubmit} />
+        </Total>
+      </Container>
+    );
   }
 }
 
 Home.propTypes = {
-  userId : PropTypes.string.isRequired,
+  userId   : PropTypes.string.isRequired,
+  articles : PropTypes.array,
 };
 
 export default Home;
