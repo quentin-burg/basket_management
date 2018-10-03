@@ -35,21 +35,24 @@ class Home extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    callApi({
-      method : 'GET',
-      route  : `http://localhost:5000/order/${this.props.userId}`,
-    })
-      .then(({ articles }) => {
-        this.setState({ articles });
-        return Promise.resolve(articles);
+    const { userId } = this.props;
+    if (userId) {
+      callApi({
+        method : 'GET',
+        route  : `http://localhost:5000/order/${userId}`,
       })
-      .then(articles => {
-        const articlesQteTemp = {};
-        articles.map(
-          article => (articlesQteTemp[article.id] = article.quantity)
-        );
-        this.setState({ articlesQuantity : articlesQteTemp });
-      });
+        .then(({ articles }) => {
+          this.setState({ articles });
+          return Promise.resolve(articles);
+        })
+        .then(articles => {
+          const articlesQteTemp = {};
+          articles.map(
+            article => (articlesQteTemp[article.id] = article.quantity)
+          );
+          this.setState({ articlesQuantity : articlesQteTemp });
+        });
+    }
   }
 
   updateQuantity(quantity, id) {
@@ -84,20 +87,27 @@ class Home extends React.Component {
       const reducer = (sum, article) => article.price * article.quantity + sum;
       return articlesList.reduce(reducer, 0).toFixed(2);
     }
-
-    return (
-      <Container>
-        <Title> Voici votre panier </Title>
-        <OrderLine
-          articles={articles || []}
-          updateQuantity={this.updateQuantity}
-        />
-        <Total>
-          <TotalBox totalPrice={addArticlesPrices(articles)} />
-          <ValidateOrderButton path="/order" action={this.handleSubmit} />
-        </Total>
-      </Container>
-    );
+    if (this.state.articles.length) {
+      return (
+        <Container>
+          <Title> Voici votre panier </Title>
+          <OrderLine
+            articles={articles || []}
+            updateQuantity={this.updateQuantity}
+          />
+          <Total>
+            <TotalBox totalPrice={addArticlesPrices(articles)} />
+            <ValidateOrderButton path="/order" action={this.handleSubmit} />
+          </Total>
+        </Container>
+      );
+    } else {
+      return (
+        <Container>
+          <Title> Votre panier est vide </Title>
+        </Container>
+      );
+    }
   }
 }
 

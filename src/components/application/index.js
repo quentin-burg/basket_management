@@ -6,7 +6,7 @@ import Bill from 'components/bill';
 import history from 'utils/history';
 import PropTypes from 'prop-types';
 
-const Application = ({ userId = '35' }) => (
+const Application = ({ userId = '' }) => (
   <Router history={history}>
     <Switch>
       <Route exact path="/" render={() => <Home userId={userId} />} />
