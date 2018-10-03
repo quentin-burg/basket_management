@@ -46,23 +46,7 @@ class Home extends React.Component {
       this.setState({ articlesQuantity : articlesQteTemp });
     };
   }
-  /*callApi({
-      method : 'GET',
-      route  : `http://localhost:5000/order/${this.props.userId}`,
-    })
-      .then(({ articles }) => {
-        this.setState({ articles });
-        return Promise.resolve(articles);
-      })
-      .then(articles => {
-        const articlesQteTemp = {};
-        articles.map(
-          article => (articlesQteTemp[article.id] = article.quantity)
-        );
-        this.setState({ articlesQuantity : articlesQteTemp });
-      });
-  }
- */
+
   updateQuantity(quantity, id) {
     const articlesQty = this.state.articlesQuantity;
     articlesQty[id] = quantity;
@@ -84,11 +68,6 @@ class Home extends React.Component {
         articles : this.props.articles,
       },
     }).then(result => console.log(result));
-    //const userId = this.props;
-    /*callApi({
-      method : 'GET',
-      route  : `http://localhost:5000/order/${userId}`,
-    }).then(({ articles }) => this.setState({ articles }));*/
   }
 
   render() {
