@@ -13,13 +13,21 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const BillBox = ({ articles }) => (
-  <Container>
-    {articles.map(article => (
-      <Line article={article} key={article.id} />
-    ))}
-  </Container>
-);
+class BillBox extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Container>
+        {this.props.articles.map(article => (
+          <Line article={article} key={article.id} />
+        ))}
+      </Container>
+    );
+  }
+}
 
 BillBox.propTypes = {
   articles : PropTypes.array,

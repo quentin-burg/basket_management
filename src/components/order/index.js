@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import TotalBox from 'components/totalBox';
 import CreditCardBox from 'components/creditCardBox';
 import BillBox from 'components/billBox';
-import callApi from 'api';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
@@ -32,28 +31,23 @@ const Content = styled.div`
 class Order extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      articles : [],
-    };
   }
-  componentDidMount() {
-    const { userId } = this.props;
-    callApi({
-      method : 'GET',
-      route  : `http://localhost:5000/order/${userId}`,
-    }).then(({ articles }) => this.setState({ articles }));
-  }
+
   render() {
-    const { articles } = this.state;
+    function addArticlesPrices(articlesList) {
+      const reducer = (sum, article) => article.price * article.quantity + sum;
+      return articlesList.reduce(reducer, 0).toFixed(2);
+    }
+
     return (
       <Container>
         <Title> Votre commande </Title>
         <Content>
-          <BillBox articles={articles} />
+          <BillBox articles={this.props.articles} />
           <CreditCardBox userId={this.props.userId} />
         </Content>
         <Total>
-          <TotalBox />
+          <TotalBox totalPrice={addArticlesPrices(this.props.articles)} />
         </Total>
       </Container>
     );
@@ -61,7 +55,8 @@ class Order extends React.Component {
 }
 
 Order.propTypes = {
-  userId : PropTypes.string.isRequired,
+  userId   : PropTypes.string.isRequired,
+  articles : PropTypes.array.isRequired,
 };
 
 export default Order;

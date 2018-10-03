@@ -28,7 +28,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles         : [],
       articlesQuantity : {},
     };
     this.updateQuantity = this.updateQuantity.bind(this);
@@ -71,15 +70,18 @@ class Home extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state.articles);
-    this.state.articles.map(
-      article => (article.quantity = this.state.articlesQuantity[article.id])
+    const articles = this.props.articles;
+    articles.map(
+      article =>
+        this.state.articlesQuantity[article.id] !== undefined
+          ? (article.quantity = this.state.articlesQuantity[article.id])
+          : article.quantity
     );
     callApi({
       method : 'PUT',
       route  : 'http://localhost:5000/order',
       body   : {
-        articles : this.state.articles,
+        articles : this.props.articles,
       },
     }).then(result => console.log(result));
     //const userId = this.props;
@@ -99,11 +101,11 @@ class Home extends React.Component {
       <Container>
         <Title> Voici votre panier </Title>
         <OrderLine
-          articles={articles || []}
+          articles={this.props.articles || []}
           updateQuantity={this.updateQuantity}
         />
         <Total>
-          <TotalBox totalPrice={addArticlesPrices(articles)} />
+          <TotalBox totalPrice={addArticlesPrices(this.props.articles)} />
           <ValidateOrderButton path="/order" action={this.handleSubmit} />
         </Total>
       </Container>
@@ -112,7 +114,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  userId : PropTypes.string.isRequired,
+  userId   : PropTypes.string.isRequired,
+  articles : PropTypes.array,
 };
 
 export default Home;
