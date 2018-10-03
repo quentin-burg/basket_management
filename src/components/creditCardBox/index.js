@@ -19,7 +19,7 @@ class CreditCardBox extends React.Component {
     const { userId } = this.props;
     callApi({
       method : 'POST',
-      route  : 'http://localhost:5000/bill',
+      route  : '/bill',
       body   : { userId },
     }).then(({ bill }) => console.log(bill));
   }

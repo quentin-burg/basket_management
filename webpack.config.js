@@ -4,7 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = env => {
-  console.log('env', env);
+  console.log('The environment is : ', env);
   return {
     entry  : './src/index.js',
     output : {

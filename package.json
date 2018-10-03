@@ -5,16 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:production": "ENV=production webpack --config webpack.config.js --mode production",
-    "build:preprod": " ENV=preprod webpack --config webpack.config.js --mode production",
+    "build:production": "webpack --config webpack.config.js --mode production --env=production",
+    "build:preprod": " webpack --config webpack.config.js --mode production --env=preprod",
     "dev": "webpack-dev-server --mode development --config webpack.config.js --env=dev",
     "server": "node server/index.js",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
     "precommit": "lint-staged",
-    "start:production": "ENV=production node dist/server/index.js",
-    "start:preprod": "ENV=preprod node dist/server/index.js"
+    "start:production": "node dist/server/index.js --env=production",
+    "start:preprod": "node dist/server/index.js --env=preprod"
   },
   "repository": {
     "type": "git",
