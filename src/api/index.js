@@ -6,7 +6,7 @@ export default function callApi({ method, route, body }) {
   });
   const opts = {
     method,
-    body,
+    body : JSON.stringify(body),
     headers,
   };
   return fetch(route, opts)
