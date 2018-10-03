@@ -11,10 +11,7 @@ const Container = styled.div`
 const Line = ({ article }) => (
   <Container>
     <div>{article.name} </div>
-    <div>
-      {article.price}
-      euros
-    </div>
+    <div>{article.price}€</div>
   </Container>
 );
 

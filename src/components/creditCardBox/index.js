@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ValidateOrderButton from 'components/validateOrderButton';
+import callApi from 'api';
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,11 @@ class CreditCardBox extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit() {
-    // console.log('couoc', this.inputNumber);
+    callApi({
+      method : 'POST',
+      route  : 'http://localhost:5000/bill',
+      body   : { userId : '35' },
+    }).then(({ bill }) => console.log(bill));
   }
   render() {
     return (

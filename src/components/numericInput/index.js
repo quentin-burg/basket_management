@@ -33,11 +33,14 @@ class NumericInput extends React.Component {
     this.setState({
       inputValue : event.target.value,
     });
+    this.props.updateQuantity(this.state.inputValue, this.props.id);
   }
 }
 
 NumericInput.propTypes = {
-  value : PropTypes.string,
+  value          : PropTypes.string,
+  updateQuantity : PropTypes.func,
+  id             : PropTypes.number,
 };
 
 export default NumericInput;
