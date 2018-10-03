@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import TotalBox from 'components/totalBox';
 import CreditCardBox from 'components/creditCardBox';
 import BillBox from 'components/billBox';
+import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -27,17 +29,39 @@ const Content = styled.div`
   justify-content: space-around;
 `;
 
-const Order = () => (
-  <Container>
-    <Title> Votre commande </Title>
-    <Content>
-      <BillBox />
-      <CreditCardBox />
-    </Content>
-    <Total>
-      <TotalBox />
-    </Total>
-  </Container>
-);
+class Order extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles : [],
+    };
+  }
+  componentDidMount() {
+    const { userId } = this.props;
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${userId}`,
+    }).then(({ articles }) => this.setState({ articles }));
+  }
+  render() {
+    const { articles } = this.state;
+    return (
+      <Container>
+        <Title> Votre commande </Title>
+        <Content>
+          <BillBox articles={articles} />
+          <CreditCardBox userId={this.props.userId} />
+        </Content>
+        <Total>
+          <TotalBox />
+        </Total>
+      </Container>
+    );
+  }
+}
+
+Order.propTypes = {
+  userId : PropTypes.string.isRequired,
+};
 
 export default Order;

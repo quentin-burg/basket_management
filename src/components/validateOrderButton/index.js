@@ -16,14 +16,22 @@ const Button = styled.div`
   padding: 10px;
 `;
 
-const ValidateButton = ({ path }) => (
+const ValidateOrderButton = ({ path, action }) => (
   <Container>
-    <Button onClick={() => history.push(path)}>Valider</Button>
+    <Button
+      onClick={() => {
+        history.push(path);
+        action();
+      }}
+    >
+      Valider
+    </Button>
   </Container>
 );
 
-ValidateButton.propTypes = {
-  path : PropTypes.string.isRequired,
+ValidateOrderButton.propTypes = {
+  path   : PropTypes.string.isRequired,
+  action : PropTypes.func,
 };
 
-export default ValidateButton;
+export default ValidateOrderButton;

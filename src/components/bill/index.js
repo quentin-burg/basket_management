@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BillBox from 'components/billBox';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   font-size: 20px;
@@ -25,17 +26,21 @@ const Content = styled.div`
   justify-content: space-around;
 `;
 
-const Bill = () => (
+const Bill = ({ articles }) => (
   <Container>
     <Title>Votre facture</Title>
     <Content>
-      <BillBox />
+      <BillBox articles={articles || []} />
       <Message>
-        <div>Merci d\'avoir commandé!</div>
+        <div>Merci d avoir commandé!</div>
         <div>Votre numéro de facture est le: xxxxxx</div>
       </Message>
     </Content>
   </Container>
 );
+
+Bill.propTypes = {
+  articles : PropTypes.array,
+};
 
 export default Bill;

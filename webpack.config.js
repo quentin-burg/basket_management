@@ -9,7 +9,7 @@ module.exports = {
     path       : path.resolve(__dirname, 'dist'),
     publicPath : '/',
   },
-  mode      : 'development',
+  mode      : 'production',
   devServer : {
     historyApiFallback : true,
   },
@@ -27,6 +27,15 @@ module.exports = {
           },
         ],
       },
+      {
+        test    : /\.json$/,
+        exclude : /node_modules/,
+        use     : [
+          {
+            loader : 'json-loader',
+          },
+        ],
+      },
     ],
   },
   plugins : [
@@ -34,6 +43,13 @@ module.exports = {
       // Copy index.html in output folder
       {
         from : path.join(__dirname, 'index.html'),
+      },
+    ]),
+    new CopyWebpackPlugin([
+      // Copy index.html in output folder
+      {
+        from : path.join(__dirname, 'server'),
+        to   : path.join(__dirname, 'dist', 'server'),
       },
     ]),
     new HtmlWebPackPlugin({
