@@ -4,6 +4,7 @@ import TotalBox from 'components/totalBox';
 import CreditCardBox from 'components/creditCardBox';
 import BillBox from 'components/billBox';
 import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -36,9 +37,11 @@ class Order extends React.Component {
     };
   }
   componentDidMount() {
-    callApi({ method : 'GET', route : 'http://localhost:5000/order/35' }).then(
-      ({ articles }) => this.setState({ articles })
-    );
+    const { userId } = this.props;
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${userId}`,
+    }).then(({ articles }) => this.setState({ articles }));
   }
   render() {
     const { articles } = this.state;
@@ -47,7 +50,7 @@ class Order extends React.Component {
         <Title> Votre commande </Title>
         <Content>
           <BillBox articles={articles} />
-          <CreditCardBox />
+          <CreditCardBox userId={this.props.userId} />
         </Content>
         <Total>
           <TotalBox />
@@ -56,5 +59,9 @@ class Order extends React.Component {
     );
   }
 }
+
+Order.propTypes = {
+  userId : PropTypes.string.isRequired,
+};
 
 export default Order;

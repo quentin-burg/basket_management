@@ -4,6 +4,7 @@ import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
 import ValidateOrderButton from 'components/validateOrderButton';
 import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -34,7 +35,10 @@ class Home extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    callApi({ method : 'GET', route : 'http://localhost:5000/order/35' })
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${this.props.userId}`,
+    })
       .then(({ articles }) => {
         this.setState({ articles });
         return Promise.resolve(articles);
@@ -66,6 +70,11 @@ class Home extends React.Component {
         articles : this.state.articles,
       },
     }).then(result => console.log(result));
+    const userId = this.props;
+    callApi({
+      method : 'GET',
+      route  : `http://localhost:5000/order/${userId}`,
+    }).then(({ articles }) => this.setState({ articles }));
   }
 
   render() {
@@ -92,6 +101,8 @@ class Home extends React.Component {
   }
 }
 
-// action={() => callApi({ method : 'PUT', route : 'http://localhost:5000/order')}
+Home.propTypes = {
+  userId : PropTypes.string.isRequired,
+};
 
 export default Home;
