@@ -17,18 +17,23 @@ const LineContainer = styled.div`
   flex-direction: row;
 `;
 
-const OrderLine = ({ articles }) => (
+const OrderLine = ({ articles, updateQuantity }) => (
   <Container>
     {articles.map(article => (
       <LineContainer key={article.id}>
         <Line article={article} key={article.id} />
-        <NumericInput value={article.quantity} />
+        <NumericInput
+          value={article.quantity}
+          updateQuantity={updateQuantity}
+          id={article.id}
+        />
       </LineContainer>
     ))}
   </Container>
 );
 
 OrderLine.propTypes = {
-  articles : PropTypes.array,
+  articles       : PropTypes.array,
+  updateQuantity : PropTypes.func,
 };
 export default OrderLine;

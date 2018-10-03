@@ -66,3 +66,7 @@ https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-ba
 - User Interface -> 3 vues
 - Le serveur -> définir les modèles (commande et facture) : avec les routes (POST, GET, PUT) (ENDPOINTS)
 - API -> coté client : définir les appels aux routes
+
+# Tests :
+
+- https://hackernoon.com/api-testing-with-jest-d1ab74005c0a

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ValidateOrderButton from 'components/validateOrderButton';
 import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   display: flex;
@@ -15,10 +16,11 @@ class CreditCardBox extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit() {
+    const userId = this.props;
     callApi({
       method : 'POST',
       route  : 'http://localhost:5000/bill',
-      body   : { userId : '35' },
+      body   : { userId },
     }).then(({ bill }) => console.log(bill));
   }
   render() {
@@ -41,5 +43,9 @@ class CreditCardBox extends React.Component {
     );
   }
 }
+
+CreditCardBox.propTypes = {
+  userId : PropTypes.string.isRequired,
+};
 
 export default CreditCardBox;
