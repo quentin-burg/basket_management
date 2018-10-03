@@ -61,12 +61,44 @@ https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-ba
 
 - npm run dev:server
 
-# TODO :
-
-- User Interface -> 3 vues
-- Le serveur -> définir les modèles (commande et facture) : avec les routes (POST, GET, PUT) (ENDPOINTS)
-- API -> coté client : définir les appels aux routes
-
-# Tests :
+# Info Tests :
 
 - https://hackernoon.com/api-testing-with-jest-d1ab74005c0a
+
+# WORKFLOW GIT :
+
+<master> <------ <test> <------ <dev> -------> <someBranch>
+
+## Explications :
+
+- la branche master est la branche de production. Il est interdit de push directement dessus (sauf pour hotfix critique).
+  Les modifications de la branche master seront apportées par la branche test, une fois que les différents tests seront passés et validés.
+
+- la branche test est la branche de pré-production. Il est interdit de push directement dessus.
+  Cette branche sert pour les TIIR pour exécuter les différents tests. Elle sera déployé sur le serveur de test.
+
+- la branche dev est la branche de développement. C'est à partir de cette branche que les IAGL tirent une branche pour développer la feature. Une fois terminée, testée localement, ils mergent la branche dans dev. On refait des tests en dev pour identifier potentiellement des régressions. Une fois les tests OK, on peut merger dev dans test.
+
+# Commandes npm :
+
+- npm install : installe toutes les dépendances du projet. A exécuter après un pull pour prévenir tout changement de dépendances.
+
+- npm run build : génère un build de l'application. Le dossier de build généré est `dist` pour l'app frontend et `build` pour le serveur.
+
+- npm run test : permet d'exécuter les tests du projet.
+
+- npm run start (ou npm start) : permet d'exécuter l'app buildée (donc qui se trouve dans `dist` ou `build`)
+
+- npm run dev : permet d'exécuter l'app dans un contexte de développement (permet le hot reload par exemple)
+
+# Fichiers de configuration :
+
+## Serveur :
+
+Le fichier de configuration pour le serveur se trouve dans le dossier `src/config/index.js`.
+
+// TODO
+
+## Application web :
+
+// TODO
