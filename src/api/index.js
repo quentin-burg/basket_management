@@ -1,5 +1,11 @@
 import _ from 'lodash';
+import config from 'config';
 
+const environment = process.env.ENV || 'dev';
+const host = `${config[environment].SERVER}:${config[environment].PORT_SERVER}`;
+console.log('hsot', host);
+
+// example route = /order (without host name)
 export default function callApi({ method, route, body }) {
   const headers = new Headers({
     'Content-Type' : 'application/json',
@@ -9,7 +15,8 @@ export default function callApi({ method, route, body }) {
     body : JSON.stringify(body),
     headers,
   };
-  return fetch(route, opts)
+  console.log('ROUTE', host + route);
+  return fetch(host + route, opts)
     .then(response => response.json())
     .then(resJson => {
       if (!resJson.success) {
