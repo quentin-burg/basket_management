@@ -93,7 +93,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  userId   : PropTypes.string.isRequired,
+  userId   : PropTypes.string,
   articles : PropTypes.array,
 };
 

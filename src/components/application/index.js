@@ -7,6 +7,8 @@ import Bill from 'components/bill';
 import history from 'utils/history';
 import PropTypes from 'prop-types';
 
+import createFakeData from 'utils/fakeData';
+
 class Application extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,11 @@ class Application extends React.Component {
   }
 
   componentDidMount() {
-    const userId = this.state.userId;
+    const tempUserId = createFakeData();
+    const userId = this.state.userId || tempUserId;
+    this.setState({
+      userId,
+    });
     callApi({
       method : 'GET',
       route  : `/order/${userId}`,
