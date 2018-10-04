@@ -9,8 +9,8 @@
 ## Equipe TIIR :
 
 - Mehdi Malameli
-- Hugo ??
-- Aurélien ??
+- Hugo Alder
+- Aurélien Sille
 
 ## PORTS :
 
