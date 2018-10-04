@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express();
 
 const PORT = 3000;
-const DIST = path.join(__dirname, '..', 'dist');
+const DIST = path.join(__dirname, '..');
 
 app.use(express.static(DIST));
 
