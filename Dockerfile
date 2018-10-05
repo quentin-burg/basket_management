@@ -5,9 +5,10 @@ from node:8.12.0-stretch
 
 ADD . /root/app/
 
-RUN cd /root/app \
-    && npm install
+WORKDIR /root/app
 
-ENTRYPOINT cd /root/app/ \
-    && npm run build:$ENVIRONNEMENT \
-    && npm run start:$ENVIRONNEMENT
+RUN npm install
+
+
+ENTRYPOINT npm run build:$ENVIRONNEMENT \
+   && npm run start:$ENVIRONNEMENT
