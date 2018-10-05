@@ -45,6 +45,10 @@ class Home extends React.Component {
       articles.map(article => (articlesQteTemp[article.id] = article.quantity));
       this.setState({ articlesQuantity : articlesQteTemp });
     };
+    callApi({
+      method : 'GET',
+      route  : 'http://localhost:5000/test',
+    });
   }
 
   updateQuantity(quantity, id) {
