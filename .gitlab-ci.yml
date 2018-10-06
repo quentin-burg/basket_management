@@ -1,22 +1,33 @@
-image: docker:latest
-services:
-  - docker:dind
+# image: docker:latest
+# services:
+#   - docker:dind
+
+# stages:
+#   - build
+
+# variables:
+#   TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
+
+# build:
+#   stage: build
+#   tags:
+#     - docker
+#     - ifi
+#   script:
+#     - docker info
+#     # - docker build --pull -t $TEST_IMAGE .
+#     # - docker push $TEST_IMAGE
+
+#   only:
+#     - dev
 
 stages:
   - build
 
-variables:
-  TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
-
-build:
+test:
+  image: node:8
   stage: build
-  tags:
-    - docker
-    - ifi
   script:
-    - docker info
-    # - docker build --pull -t $TEST_IMAGE .
-    # - docker push $TEST_IMAGE
-
-  only:
-    - dev
+    - npm install
+    - npm run build
+    - ls
