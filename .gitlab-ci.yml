@@ -29,5 +29,5 @@ test:
   stage: build
   script:
     - npm install
-    - npm run build
+    - npm run build:preprod
     - ls
