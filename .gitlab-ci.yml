@@ -41,9 +41,15 @@ test:
     # WARNING: Use this only with the Docker executor, if you use it with shell
     # you will overwrite your user's SSH config.
     - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
   script:
+    # - git init
+    # configure git config
+    # - git config user.name "Gitlab Agent"
+    # - git config user.email "agent@gitlab.com
     - npm install
     - npm run build:preprod
+    # - git add dist/* package.json package-lock.json Dockerfile -f
+    - scp -r package.json debian@51.68.42.214:test-ci
     - ls
