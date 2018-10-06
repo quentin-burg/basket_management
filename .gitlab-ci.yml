@@ -29,6 +29,7 @@ test:
   stage: build
   tags:
     - shared
+    - docker
   script:
     - npm install
     - npm run build:preprod
