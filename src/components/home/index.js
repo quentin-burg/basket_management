@@ -24,11 +24,17 @@ const Total = styled.div`
   margin-right: 10px;
 `;
 
+const State = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       articlesQuantity : {},
+      connexion        : 'KO',
     };
     this.updateQuantity = this.updateQuantity.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,8 +53,8 @@ class Home extends React.Component {
     };
     callApi({
       method : 'GET',
-      route  : 'http://localhost:5000/test',
-    });
+      route  : 'http://localhost:8080/test',
+    }).then(this.setState({ connexion : 'OK' }));
   }
 
   updateQuantity(quantity, id) {
@@ -67,7 +73,7 @@ class Home extends React.Component {
     );
     callApi({
       method : 'PUT',
-      route  : '/order',
+      route  : 'http://localhost:5000/order',
       body   : {
         articles : this.props.articles,
       },
@@ -83,6 +89,8 @@ class Home extends React.Component {
     return (
       <Container>
         <Title> Voici votre panier </Title>
+        <State>{this.state.connexion}</State>
+        <br />
         <OrderLine
           articles={this.props.articles || []}
           updateQuantity={this.updateQuantity}
@@ -97,7 +105,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  userId   : PropTypes.string,
+  userId   : PropTypes.string.isRequired,
   articles : PropTypes.array,
 };
 
