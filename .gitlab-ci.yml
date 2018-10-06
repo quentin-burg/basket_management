@@ -6,7 +6,7 @@ stages:
   - build
 
 variables:
-  - TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
+  TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
 
 build:
   stage: build
