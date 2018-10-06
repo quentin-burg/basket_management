@@ -11,7 +11,8 @@ variables:
 build:
   stage: build
   tags:
-    - ansible
+    - docker
+    - ifi
   script:
     - docker info
     - docker build --pull -t $TEST_IMAGE .
