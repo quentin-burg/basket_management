@@ -1,0 +1,18 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+
+variables:
+  - TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
+
+build:
+  stage: build
+  script:
+    - docker build --pull -t $TEST_IMAGE .
+    - docker push $TEST_IMAGE
+
+  only:
+    - dev
