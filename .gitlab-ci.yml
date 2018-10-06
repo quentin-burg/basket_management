@@ -15,8 +15,8 @@ build:
     - ifi
   script:
     - docker info
-    - docker build --pull -t $TEST_IMAGE .
-    - docker push $TEST_IMAGE
+    # - docker build --pull -t $TEST_IMAGE .
+    # - docker push $TEST_IMAGE
 
   only:
     - dev
