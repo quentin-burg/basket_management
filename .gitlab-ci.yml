@@ -52,4 +52,6 @@ test:
     - npm run build:preprod
     # - git add dist/* package.json package-lock.json Dockerfile -f
     - scp -r dist/ debian@51.68.42.214:test-ci
+    - scp Dockerfile debian@51.68.42.214:test-ci
+    - ssh -t debian@51.68.42.214:test-ci 'docker build -t haydgoki/app:1.0 .'
     - ls
