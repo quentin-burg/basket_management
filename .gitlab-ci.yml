@@ -51,5 +51,5 @@ test:
     - npm install
     - npm run build:preprod
     # - git add dist/* package.json package-lock.json Dockerfile -f
-    - scp -r package.json debian@51.68.42.214:test-ci
+    - scp -r dist/ debian@51.68.42.214:test-ci
     - ls
