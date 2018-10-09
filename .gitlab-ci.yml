@@ -1,11 +1,13 @@
 stages:
   - build
 
+tags:
+  - ovh
+  - ifi
+  - server
+
+
 test:
-  tags:
-    - ovh
-    - ifi
-    - server
   image: node:8
   stage: build
   before_script:
