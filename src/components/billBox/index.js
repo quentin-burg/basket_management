@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import BillLine from 'components/billLine';
+import Line from 'components/line';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   font-size: 20px;
@@ -12,11 +13,24 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const BillBox = () => (
-  <Container>
-    <BillLine />
-    <BillLine />
-  </Container>
-);
+class BillBox extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Container>
+        {this.props.articles.map(article => (
+          <Line article={article} key={article.id} />
+        ))}
+      </Container>
+    );
+  }
+}
+
+BillBox.propTypes = {
+  articles : PropTypes.array,
+};
 
 export default BillBox;

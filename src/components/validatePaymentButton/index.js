@@ -16,14 +16,14 @@ const Button = styled.div`
   padding: 10px;
 `;
 
-const ValidateButton = ({ path }) => (
+const ValidatePaymentButton = ({ path }) => (
   <Container>
     <Button onClick={() => history.push(path)}>Valider</Button>
   </Container>
 );
 
-ValidateButton.propTypes = {
+ValidatePaymentButton.propTypes = {
   path : PropTypes.string.isRequired,
 };
 
-export default ValidateButton;
+export default ValidatePaymentButton;

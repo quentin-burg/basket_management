@@ -1,0 +1,57 @@
+# image: docker:latest
+# services:
+#   - docker:dind
+
+# stages:
+#   - build
+
+# variables:
+#   TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
+
+# build:
+#   stage: build
+#   tags:
+#     - docker
+#     - ifi
+#   script:
+#     - docker info
+#     # - docker build --pull -t $TEST_IMAGE .
+#     # - docker push $TEST_IMAGE
+
+#   only:
+#     - dev
+
+stages:
+  - build
+
+test:
+  image: node:8
+  stage: build
+  before_script:
+    - apt-get update -qy
+    # Install ssh-agent if not already installed, it is required by Docker.
+    # (change apt-get to yum if you use a CentOS-based image)
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    # Run ssh-agent (inside the build environment)
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$GIT_SSH_KEY")
+    # For Docker builds disable host key checking. Be aware that by adding that
+    # you are suspectible to man-in-the-middle attacks.
+    # WARNING: Use this only with the Docker executor, if you use it with shell
+    # you will overwrite your user's SSH config.
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    # - git init
+    # configure git config
+    # - git config user.name "Gitlab Agent"
+    # - git config user.email "agent@gitlab.com
+    - npm install
+    - npm run build:preprod
+    # - git add dist/* package.json package-lock.json Dockerfile -f
+    - scp -r dist/ debian@51.68.42.214:test-ci
+    - scp Dockerfile debian@51.68.42.214:test-ci
+    - ssh debian@51.68.42.214 'cd test-ci && sudo docker build -t haydgoki/app:1.0 .'
+    - ls

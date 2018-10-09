@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import OrderLine from 'components/orderLine';
 import TotalBox from 'components/totalBox';
-import ValidateButton from 'components/validateButton';
+import ValidateOrderButton from 'components/validateOrderButton';
+import callApi from 'api';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -22,14 +24,89 @@ const Total = styled.div`
   margin-right: 10px;
 `;
 
-const Home = () => (
-  <Container>
-    <Title> Voici votre panier </Title>
-    <OrderLine />
-    <Total>
-      <TotalBox />
-      <ValidateButton />
-    </Total>
-  </Container>
-);
+const State = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      articlesQuantity : {},
+      connexion        : 'KO',
+    };
+    this.updateQuantity = this.updateQuantity.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.articles !== prevProps.articles) {
+      this.setState({ articles : this.props.articles });
+    }
+  }
+  componentDidMount() {
+    articles => {
+      const articlesQteTemp = {};
+      articles.map(article => (articlesQteTemp[article.id] = article.quantity));
+      this.setState({ articlesQuantity : articlesQteTemp });
+    };
+    callApi({
+      method : 'GET',
+      route  : 'http://localhost:8080/test',
+    }).then(this.setState({ connexion : 'OK' }));
+  }
+
+  updateQuantity(quantity, id) {
+    const articlesQty = this.state.articlesQuantity;
+    articlesQty[id] = quantity;
+    this.setState({ articlesQuantity : articlesQty });
+  }
+
+  handleSubmit() {
+    const articles = this.props.articles;
+    articles.map(
+      article =>
+        this.state.articlesQuantity[article.id] !== undefined
+          ? (article.quantity = this.state.articlesQuantity[article.id])
+          : article.quantity
+    );
+    callApi({
+      method : 'PUT',
+      route  : 'http://localhost:5000/order',
+      body   : {
+        articles : this.props.articles,
+      },
+    }).then(result => console.log(result));
+  }
+
+  render() {
+    function addArticlesPrices(articlesList) {
+      const reducer = (sum, article) => article.price * article.quantity + sum;
+      return articlesList.reduce(reducer, 0).toFixed(2);
+    }
+
+    return (
+      <Container>
+        <Title> Voici votre panier </Title>
+        <State>{this.state.connexion}</State>
+        <br />
+        <OrderLine
+          articles={this.props.articles || []}
+          updateQuantity={this.updateQuantity}
+        />
+        <Total>
+          <TotalBox totalPrice={addArticlesPrices(this.props.articles)} />
+          <ValidateOrderButton path="/order" action={this.handleSubmit} />
+        </Total>
+      </Container>
+    );
+  }
+}
+
+Home.propTypes = {
+  userId   : PropTypes.string.isRequired,
+  articles : PropTypes.array,
+};
+
 export default Home;
