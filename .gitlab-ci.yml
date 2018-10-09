@@ -51,7 +51,6 @@ test:
     - npm run build:preprod
     # - git add dist/* package.json package-lock.json Dockerfile -f
     # On clean tout avant de remettre les sources
-    - ssh debian@TEST_APP_IP 'docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker stop && docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker rm && rm -rf test-ci'
+    - ssh debian@$TEST_APP_IP 'docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker stop && docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker rm && rm -rf test-ci'
     - scp -r ./ debian@$TEST_APP_IP:test-ci
-    - ssh debian@TEST_APP_IP 'cd test-ci && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 -e ENVIRONNEMENT=preprod haydgoki/app:1.0 npm run start:preprod'
-    - scp Dockerfile debian@$TEST_APP_IP:test-ci
+    - ssh debian@$TEST_APP_IP 'cd test-ci && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 -e ENVIRONNEMENT=preprod haydgoki/app:1.0 npm run start:preprod'
