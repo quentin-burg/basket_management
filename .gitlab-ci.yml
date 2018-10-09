@@ -12,7 +12,7 @@ deploy-preprod:
     - server
   stage: deploy
   only:
-    - master
+    - dev
   before_script:
     - apt-get update -qy
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
