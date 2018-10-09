@@ -1,26 +1,3 @@
-# image: docker:latest
-# services:
-#   - docker:dind
-
-# stages:
-#   - build
-
-# variables:
-#   TEST_IMAGE: image_test:$CI_COMMIT_REF_NAME
-
-# build:
-#   stage: build
-#   tags:
-#     - docker
-#     - ifi
-#   script:
-#     - docker info
-#     # - docker build --pull -t $TEST_IMAGE .
-#     # - docker push $TEST_IMAGE
-
-#   only:
-#     - dev
-
 stages:
   - build
 
@@ -49,8 +26,7 @@ test:
   script: # Le projet est transféré directement à la racine de ce nouveau conteneur
     - npm install
     - npm run build:preprod
-    # - git add dist/* package.json package-lock.json Dockerfile -f
     # On clean tout avant de remettre les sources
-    - ssh debian@$TEST_APP_IP 'docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker stop && docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker rm && rm -rf test-ci'
+    - ssh debian@$TEST_APP_IP 'docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs -r docker stop && docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs -r docker rm && rm -rf test-ci'
     - scp -r ./ debian@$TEST_APP_IP:test-ci
     - ssh debian@$TEST_APP_IP 'cd test-ci && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 -e ENVIRONNEMENT=preprod haydgoki/app:1.0 npm run start:preprod'
