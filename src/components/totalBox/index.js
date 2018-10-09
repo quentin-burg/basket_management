@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   display: flex;
@@ -7,11 +8,15 @@ const Container = styled.div`
   margin-top: 15px;
 `;
 
-const TotalBox = () => (
+const TotalBox = ({ totalPrice }) => (
   <Container>
     <div>Total: </div>
-    <div>19€</div>
+    <div>{totalPrice} €</div>
   </Container>
 );
+
+TotalBox.propTypes = {
+  totalPrice : PropTypes.string,
+};
 
 export default TotalBox;
