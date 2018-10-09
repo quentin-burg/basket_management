@@ -11,6 +11,8 @@ deploy-preprod:
     - ifi
     - server
   stage: deploy
+  only:
+    - master
   before_script:
     - apt-get update -qy
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -25,5 +27,3 @@ deploy-preprod:
     - ssh debian@$TEST_APP_IP 'docker ps -a -q --filter name="app" | xargs -r docker stop && docker ps -a -q --filter name="app" | xargs -r docker rm  && rm -rf app'
     - scp -r ./ debian@$TEST_APP_IP:app
     - ssh debian@$TEST_APP_IP 'cd app && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 --name app -e ENVIRONNEMENT=preprod haydgoki/app:1.0 npm run start:preprod'
-  only:
-    - master
