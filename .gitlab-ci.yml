@@ -28,6 +28,7 @@ test:
   image: node:8
   stage: build
   before_script:
+    # Add the runner's SSH Key to the docker image which will deploy the app
     - apt-get update -qy
     # Install ssh-agent if not already installed, it is required by Docker.
     # (change apt-get to yum if you use a CentOS-based image)
@@ -35,23 +36,18 @@ test:
     # Run ssh-agent (inside the build environment)
     - eval $(ssh-agent -s)
     # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
-    - ssh-add <(echo "$GIT_SSH_KEY")
+    - ssh-add <(echo "$OVH_RUNNER_SSH_KEY")
     # For Docker builds disable host key checking. Be aware that by adding that
     # you are suspectible to man-in-the-middle attacks.
-    # WARNING: Use this only with the Docker executor, if you use it with shell
-    # you will overwrite your user's SSH config.
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-  script:
-    # - git init
-    # configure git config
-    # - git config user.name "Gitlab Agent"
-    # - git config user.email "agent@gitlab.com
+  script: # Le projet est transféré directement à la racine de ce nouveau conteneur
     - npm install
     - npm run build:preprod
     # - git add dist/* package.json package-lock.json Dockerfile -f
-    - scp -r dist/ debian@51.68.42.214:test-ci
-    - scp Dockerfile debian@51.68.42.214:test-ci
-    - ssh debian@51.68.42.214 'cd test-ci && sudo docker build -t haydgoki/app:1.0 .'
-    - ls
+    # On clean tout avant de remettre les sources
+    - ssh debian@TEST_APP_IP 'docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker stop && docker ps -a | grep "haydgoki/app" | cut -d' ' -f1 | xargs docker rm && rm -rf test-ci'
+    - scp -r ./ debian@$TEST_APP_IP:test-ci
+    - scp Dockerfile debian@$TEST_APP_IP:test-ci
+    - ssh debian@TEST_APP_IP 'cd test-ci && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 -e ENVIRONNEMENT=preprod haydgoki/app:1.0 npm run start:preprod'
