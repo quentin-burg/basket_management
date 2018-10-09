@@ -14,7 +14,6 @@ build-preprod:
   script:
     - npm install
     - npm run build:preprod
-    - export ALREADY_BUILDED=1
 
 test-charge:
   tags:
@@ -68,10 +67,9 @@ deploy-prod:
     - ssh-add <(echo "$OVH_RUNNER_SSH_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  script: # Le projet est transféré directement à la racine de ce nouveau conteneur
+  script:
     - npm install
-    - npm run build:prod
-    # On clean tout avant de remettre les sources
+    - npm run build:production
     - ssh debian@$PROD_APP_IP 'docker ps -a -q --filter name="app" | xargs -r docker stop && docker ps -a -q --filter name="app" | xargs -r docker rm  && rm -rf app'
     - scp -r ./ debian@$PROD_APP_IP:app
-    - ssh debian@$PROD_APP_IP 'cd app && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 --name app -e ENVIRONNEMENT=prod haydgoki/app:1.0 npm run start:prod'
+    - ssh debian@$PROD_APP_IP 'cd app && docker build -t haydgoki/app:1.0 . && docker run -d -p 3000:3000 --name app -e ENVIRONNEMENT=production haydgoki/app:1.0 npm run start:production'
