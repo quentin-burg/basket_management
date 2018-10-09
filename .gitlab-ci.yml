@@ -13,11 +13,12 @@ build-preprod:
     - ifi
     - server
   stage: build
+  only:
+    - dev
   script:
     - npm install
     - npm run build:preprod
-  only:
-    -dev
+
 
 test-charge:
   tags:
