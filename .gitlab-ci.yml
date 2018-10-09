@@ -4,6 +4,8 @@ stages:
   - build
   - test
   - deploy
+  - test-charge
+
 
 build-preprod:
   tags:
@@ -11,16 +13,19 @@ build-preprod:
     - ifi
     - server
   stage: build
+  only:
+    - dev
   script:
     - npm install
     - npm run build:preprod
+
 
 test-charge:
   tags:
     - ovh
     - ifi
     - server
-  stage: deploy
+  stage: test
   only:
     - test
   script:
@@ -34,7 +39,6 @@ deploy-preprod:
     - server
   stage: deploy
   only:
-    - dev
     - test
   before_script:
     - apt-get update -qy
