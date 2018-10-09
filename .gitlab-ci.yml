@@ -5,6 +5,8 @@ stages:
   - deploy
 
 deploy-preprod:
+  only : 
+    -master
   tags:
     - ovh
     - ifi
