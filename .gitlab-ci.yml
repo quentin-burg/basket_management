@@ -1,13 +1,15 @@
+image: node:8
+
 stages:
   - build
+  - deploy
 
 deploy-preprod:
   tags:
     - ovh
     - ifi
     - server
-  image: node:8
-  stage: build
+  stage: deploy
   before_script:
     - apt-get update -qy
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
